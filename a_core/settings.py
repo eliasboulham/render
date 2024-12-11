@@ -138,7 +138,10 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
+
+POSTGRES_LOCALLY = False 
+if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True :
+    DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
 
 POSTGRES_LOCALLY = False
 
