@@ -20,7 +20,7 @@ env = Env()
 Env.read_env()
 ENVIRONMENT = env('ENVIRONMENT', default='production')
 # ENVIRONMENT = env('ENVIRONMENT', default='production')
-print(env('sss'))
+# print(env('sss'))
 # Feature Toggle
 # DEVELOPER = env('DEVELOPER', default='')
 # STAGING = env('STAGING', default='False')
@@ -33,13 +33,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = env('SECRET_KEY')
-SECRET_KEY = 'django-insecure--=!-p8*qiz8c&#b5yag8+v5qdu%*nuu#cib*ywv8((r3sa5-7l'
+SECRET_KEY = env('SECRET_KEY')
 
 # ENCRYPT_KEY = env('ENCRYPT_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-print(ENVIRONMENT)
 if ENVIRONMENT == 'production':
     DEBUG = True
 else:
@@ -140,6 +138,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
 
 POSTGRES_LOCALLY = False
 
