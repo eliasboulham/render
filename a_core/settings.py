@@ -18,8 +18,9 @@ import dj_database_url
 from environ import Env
 env = Env()
 Env.read_env()
+ENVIRONMENT = env('ENVIRONMENT', default='production')
 # ENVIRONMENT = env('ENVIRONMENT', default='production')
-
+print(env('sss'))
 # Feature Toggle
 # DEVELOPER = env('DEVELOPER', default='')
 # STAGING = env('STAGING', default='False')
@@ -38,12 +39,13 @@ SECRET_KEY = 'django-insecure--=!-p8*qiz8c&#b5yag8+v5qdu%*nuu#cib*ywv8((r3sa5-7l
 # ENCRYPT_KEY = env('ENCRYPT_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if True : #ENVIRONMENT == 'development':
+print(ENVIRONMENT)
+if ENVIRONMENT == 'production':
     DEBUG = True
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1',] #env('RENDER_EXTERNAL_HOSTNAME')
+ALLOWED_HOSTS = ['*'] #env('RENDER_EXTERNAL_HOSTNAME')
 
 CSRF_TRUSTED_ORIGINS = [ 'https://*.onrender.com' ]
 
@@ -63,7 +65,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    # 'admin_honeypot',
+    'admin_honeypot',
     'django_htmx',
     'allauth',
     'allauth.account',
@@ -80,7 +82,7 @@ SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -124,13 +126,18 @@ WSGI_APPLICATION = 'a_core.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-  'default': {
-        'ENGINE':'django.db.backends.mysql',
-        'NAME':'project01',
-        'USER':'root',
-        'PASSWORD':'elias1212hd',
-        'HOST':'localhost',
-        'PORT':'3306'
+#   'default': {
+#         'ENGINE':'django.db.backends.mysql',
+#         'NAME':'project01',
+#         'USER':'root',
+#         'PASSWORD':'elias1212hd',
+#         'HOST':'localhost',
+#         'PORT':'3306'
+#     }
+
+'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
